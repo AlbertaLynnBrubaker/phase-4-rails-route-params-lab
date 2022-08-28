@@ -1,8 +1,20 @@
 class StudentsController < ApplicationController
 
   def index
-    students = Student.all
+    
+
+    if(params[:name]) then      
+      students = Student.where('first_name= ? or last_name= ?', params[:name], params[:name])
+    else
+      students = Student.all
+    end
     render json: students
+
+  end
+
+  def show
+    student = Student.find(params[:id])
+    render json: student
   end
 
 end
